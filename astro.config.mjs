@@ -2,8 +2,11 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
+const LIVE_URL = 'https://www.subra.github.io';
+
 export default defineConfig({
-  integrations: [react()],
+  site: LIVE_URL,
+  integrations: [react()], 
   vite: {
     plugins: [tailwindcss()],
   },
