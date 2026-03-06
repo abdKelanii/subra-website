@@ -1,0 +1,86 @@
+---
+import { useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const steps = [
+  { num: t('how.step1.num'), title: t('how.step1.title'), desc: t('how.step1.desc'), delay: '' },
+  { num: t('how.step2.num'), title: t('how.step2.title'), desc: t('how.step2.desc'), delay: 'delay-100' },
+  { num: t('how.step3.num'), title: t('how.step3.title'), desc: t('how.step3.desc'), delay: 'delay-200' },
+  { num: t('how.step4.num'), title: t('how.step4.title'), desc: t('how.step4.desc'), delay: 'delay-300' },
+];
+---
+
+<section id="how-it-works" class="relative py-24 sm:py-32 overflow-hidden">
+  <!-- Divider top -->
+  <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-card-border to-transparent"></div>
+  <!-- Divider bottom -->
+  <div class="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-card-border to-transparent"></div>
+
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-b from-muted/20 via-transparent to-muted/10" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center mb-16 sm:mb-20">
+      <div class="reveal inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-4">
+        <span class="h-1 w-1 rounded-full bg-primary"></span>
+        {t('how.badge')}
+      </div>
+      <h2 class="reveal delay-100 text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight mb-4">
+        {t('how.headline')}
+      </h2>
+      <p class="reveal delay-200 mx-auto max-w-xl text-lg text-muted-foreground leading-relaxed">
+        {t('how.subtext')}
+      </p>
+    </div>
+
+    <!-- Steps — desktop: horizontal, mobile: vertical -->
+    <div class="relative">
+
+      <!-- Connector line (desktop only) -->
+      <div class="hidden lg:block absolute top-8 left-0 right-0 mx-auto max-w-4xl h-px step-line" aria-hidden="true"></div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+        {steps.map((step, i) => (
+          <div class={`reveal ${step.delay} relative flex flex-col items-center lg:items-center text-center group`}>
+
+            <!-- Step number bubble -->
+            <div class="relative mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-card border border-card-border group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10 transition-all duration-300 z-10">
+              <!-- Animated ring on hover -->
+              <div class="absolute inset-0 rounded-2xl bg-primary/5 scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+              <span class="relative text-xl font-bold text-primary font-mono">
+                {step.num}
+              </span>
+              <!-- Connection dot for desktop -->
+              {i < 3 && (
+                <div class="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 h-2 w-2 rounded-full bg-primary/40 group-hover:bg-primary transition-colors duration-300 z-20"></div>
+              )}
+            </div>
+
+            <!-- Content -->
+            <div class="flex flex-col items-center">
+              <h3 class="mb-2.5 text-base font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                {step.title}
+              </h3>
+              <p class="text-sm text-muted-foreground leading-relaxed max-w-[220px]">
+                {step.desc}
+              </p>
+            </div>
+
+            <!-- Vertical connector for mobile -->
+            {i < steps.length - 1 && (
+              <div class="lg:hidden mt-8 h-8 w-px bg-gradient-to-b from-primary/40 to-transparent mx-auto"></div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

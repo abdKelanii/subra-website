@@ -1,0 +1,131 @@
+---
+import { useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const basePath = lang === 'ar' ? '/ar' : '';
+const otherLangUrl = lang === 'en' ? '/ar/' : '/';
+const otherLangLabel = lang === 'en' ? 'العربية' : 'English';
+
+const productLinks = [
+  { label: t('nav.features'), href: `${basePath}/#features` },
+  { label: t('nav.howItWorks'), href: `${basePath}/#how-it-works` },
+  { label: t('nav.pricing'), href: `${basePath}/#pricing` },
+];
+
+const companyLinks = [
+  { label: t('footer.about'), href: '#' },
+  { label: t('footer.blog'), href: '#' },
+  { label: t('footer.contact'), href: '#' },
+  { label: t('footer.telegram'), href: '#' },
+];
+---
+
+<footer class="relative border-t border-card-border overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-t from-muted/30 to-transparent" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+    <!-- Main footer -->
+    <div class="py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <!-- Brand col -->
+      <div class="lg:col-span-2">
+        <!-- Logo -->
+        <a href={lang === 'ar' ? '/ar/' : '/'} class="group inline-flex items-center gap-2.5 mb-4">
+          <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary group-hover:bg-primary-hover transition-colors">
+            <span class="text-sm font-bold text-white">S</span>
+          </div>
+          <span class="text-lg font-bold text-foreground">Subra</span>
+        </a>
+        <p class="max-w-xs text-sm text-muted-foreground leading-relaxed mb-6">
+          {t('footer.tagline')}
+        </p>
+
+        <!-- Social / lang -->
+        <div class="flex items-center gap-3">
+          <!-- Telegram icon -->
+          <a
+            href="#"
+            class="flex h-9 w-9 items-center justify-center rounded-lg border border-card-border text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-card transition-all duration-200"
+            aria-label="Telegram"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.88 13.47l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.268.089z"/>
+            </svg>
+          </a>
+
+          <!-- Lang switcher -->
+          <a
+            href={otherLangUrl}
+            class="inline-flex items-center gap-1.5 rounded-lg border border-card-border px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all duration-200"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            {otherLangLabel}
+          </a>
+        </div>
+      </div>
+
+      <!-- Product links -->
+      <div>
+        <h4 class="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          {t('footer.product')}
+        </h4>
+        <ul class="space-y-2.5">
+          {productLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Company links -->
+      <div>
+        <h4 class="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          {t('footer.company')}
+        </h4>
+        <ul class="space-y-2.5">
+          {companyLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="py-6 border-t border-card-border flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-muted-foreground">{t('footer.copyright')}</p>
+      <div class="flex items-center gap-4">
+        <a href="#" class="text-xs text-muted-foreground hover:text-foreground transition-colors">
+          {t('footer.privacy')}
+        </a>
+        <span class="text-card-border">·</span>
+        <a href="#" class="text-xs text-muted-foreground hover:text-foreground transition-colors">
+          {t('footer.terms')}
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
