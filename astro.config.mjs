@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
-const LIVE_URL = 'https://www.subra.github.io';
+const LIVE_URL = 'https://subra.github.io';
 
 export default defineConfig({
   site: LIVE_URL,
